@@ -53,7 +53,9 @@ export default function TeardownDetailPage({ params }: { params: { slug: string 
   const { metrics } = teardown;
 
   const metricItems = [
-    { icon: Eye, label: '播放', value: metrics.views },
+    ...(metrics.views !== undefined
+      ? [{ icon: Eye, label: '播放', value: metrics.views }]
+      : []),
     { icon: Heart, label: '点赞', value: metrics.likes },
     { icon: MessageCircle, label: '评论', value: metrics.comments },
     { icon: Share2, label: '分享', value: metrics.shares },
@@ -117,7 +119,9 @@ export default function TeardownDetailPage({ params }: { params: { slug: string 
 
       {/* 数据快照 */}
       <Section title="数据快照">
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div
+          className={`grid grid-cols-2 gap-3 ${metricItems.length === 4 ? 'sm:grid-cols-4' : 'sm:grid-cols-3'}`}
+        >
           {metricItems.map(({ icon: Icon, label, value }) => (
             <div key={label} className="rounded-xl bg-neutral-50 p-4 text-center">
               <Icon className="mx-auto h-5 w-5 text-neutral-400" />

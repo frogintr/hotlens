@@ -19,6 +19,13 @@ export function DifficultyDots({ value }: { value: number }) {
 
 export function TeardownCard({ teardown }: { teardown: TeardownRecord }) {
   const { metrics } = teardown;
+  const metricLine = [
+    metrics.views !== undefined ? `播放 ${formatCount(metrics.views)}` : null,
+    `点赞 ${formatCount(metrics.likes)}`,
+    `评论 ${formatCount(metrics.comments)}`,
+  ]
+    .filter(Boolean)
+    .join(' · ');
   return (
     <Link
       href={`/hot/${teardown.slug}`}
@@ -50,8 +57,7 @@ export function TeardownCard({ teardown }: { teardown: TeardownRecord }) {
             {teardown.title}
           </h3>
           <p className="mt-1.5 text-sm text-neutral-500">
-            播放 {formatCount(metrics.views)} · 点赞 {formatCount(metrics.likes)} · 评论{' '}
-            {formatCount(metrics.comments)}（{metrics.capturedAt} 快照）
+            {metricLine}（{metrics.capturedAt} 快照）
           </p>
           <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-neutral-600">
             <span>

@@ -1,5 +1,5 @@
 export interface TeardownMetrics {
-  views: number;
+  views?: number;
   likes: number;
   comments: number;
   shares: number;
